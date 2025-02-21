@@ -1,0 +1,11 @@
+# Archivos y carpetas de Eclipse
+.classpath
+.project
+.settings/
+
+# Carpeta de compilación de Maven
+target/
+
+# Archivos temporales
+*.log
+*.tmp
