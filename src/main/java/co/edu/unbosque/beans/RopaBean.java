@@ -5,16 +5,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import co.edu.unbosque.model.JugueteDTO;
-
+import co.edu.unbosque.model.RopaDTO;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 
-@Named("JugueteBean")
+@Named("RopaBean")
 @SessionScoped
-public class JugueteBean implements Serializable {
+public class RopaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,25 +21,26 @@ public class JugueteBean implements Serializable {
 	private String id;
 	private String nombre;
 	private String imagen;
-	private boolean esMas18;
-	private List<JugueteDTO> lista = new ArrayList<>();
-	private JugueteDTO usuarioSeleccionado;
+	private String talla;
+	private String tipoDePrenda;
+	private List<RopaDTO> lista = new ArrayList<>();
+	private RopaDTO usuarioSeleccionado;
 
 	public void guardar() {
 
-		JugueteDTO nuevoUsuario = new JugueteDTO(precio, id, nombre, imagen, esMas18);
+		RopaDTO nuevoUsuario = new RopaDTO(precio, id, nombre, imagen, talla, tipoDePrenda);
 		lista.add(nuevoUsuario);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Juguete agregado correctamente"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Ropa agregada correctamente"));
 		limpiarFormulario();
 	}
 
-	public void eliminar(JugueteDTO usuario) {
-		Iterator<JugueteDTO> iterator = lista.iterator();
+	public void eliminar(RopaDTO usuario) {
+		Iterator<RopaDTO> iterator = lista.iterator();
 		while (iterator.hasNext()) {
-			JugueteDTO u = iterator.next();
+			RopaDTO u = iterator.next();
 			if (u.equals(usuario)) {
 				iterator.remove();
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Juguete eliminado correctamente"));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Ropa eliminada correctamente"));
 				break;
 			}
 		}
@@ -48,15 +48,17 @@ public class JugueteBean implements Serializable {
 
 	public void actualizar() {
 		if (usuarioSeleccionado != null) {
-			for (JugueteDTO u : lista) {
+			for (RopaDTO u : lista) {
 				if (u.equals(usuarioSeleccionado)) {
-					u.setPrecio(precio);
-					u.setId(id);
-					u.setNombre(nombre);
-					u.setImagen(imagen);
-					u.setEsMas18(esMas18);
+					u.getPrecio();
+					u.getId();
+					u.getNombre();
+					u.getImagen();
+					u.getTalla();
+					u.getTipoDePrenda();
+
 					FacesContext.getCurrentInstance().addMessage(null,
-							new FacesMessage("Juguete actualizado correctamente"));
+							new FacesMessage("Ropa actualizado correctamente"));
 					break;
 				}
 			}
@@ -68,7 +70,8 @@ public class JugueteBean implements Serializable {
 		this.id = "";
 		this.nombre = "";
 		this.imagen = "";
-		this.esMas18 = false;
+		this.talla = "";
+		this.tipoDePrenda = "";
 	}
 
 	public int getPrecio() {
@@ -103,27 +106,35 @@ public class JugueteBean implements Serializable {
 		this.imagen = imagen;
 	}
 
-	public boolean isEsMas18() {
-		return esMas18;
+	public String getTalla() {
+		return talla;
 	}
 
-	public void setEsMas18(boolean esMas18) {
-		this.esMas18 = esMas18;
+	public void setTalla(String talla) {
+		this.talla = talla;
 	}
 
-	public List<JugueteDTO> getLista() {
+	public String getTipoDePrenda() {
+		return tipoDePrenda;
+	}
+
+	public void setTipoDePrenda(String tipoDePrenda) {
+		this.tipoDePrenda = tipoDePrenda;
+	}
+
+	public List<RopaDTO> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<JugueteDTO> lista) {
+	public void setLista(List<RopaDTO> lista) {
 		this.lista = lista;
 	}
 
-	public JugueteDTO getUsuarioSeleccionado() {
+	public RopaDTO getUsuarioSeleccionado() {
 		return usuarioSeleccionado;
 	}
 
-	public void setUsuarioSeleccionado(JugueteDTO usuarioSeleccionado) {
+	public void setUsuarioSeleccionado(RopaDTO usuarioSeleccionado) {
 		this.usuarioSeleccionado = usuarioSeleccionado;
 	}
 
@@ -133,8 +144,9 @@ public class JugueteBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "JugueteBean [precio=" + precio + ", id=" + id + ", nombre=" + nombre + ", imagen=" + imagen
-				+ ", esMas18=" + esMas18 + ", lista=" + lista + ", usuarioSeleccionado=" + usuarioSeleccionado + "]";
+		return "RopaBean [precio=" + precio + ", id=" + id + ", nombre=" + nombre + ", imagen=" + imagen + ", talla="
+				+ talla + ", tipoDePrenda=" + tipoDePrenda + ", lista=" + lista + ", usuarioSeleccionado="
+				+ usuarioSeleccionado + "]";
 	}
 
 }

@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="6.0">
 	<display-name>Prog2ProyectoPrimerCorte</display-name>
 	<welcome-file-list>
-		<welcome-file>index.xhtml</welcome-file>
+		<welcome-file>juguete.xhtml</welcome-file>
 
 	</welcome-file-list>
 	<servlet>
