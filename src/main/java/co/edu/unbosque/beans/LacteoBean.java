@@ -56,7 +56,7 @@ public class LacteoBean implements Serializable {
 					u.getNombre();
 					u.getImagen();
 					u.isSinLactosa();
-					u.getTipoDeLeche();
+					u.getTipoDeLacteo();
 
 					FacesContext.getCurrentInstance().addMessage(null,
 							new FacesMessage("Alimento lacteo actualizado correctamente"));

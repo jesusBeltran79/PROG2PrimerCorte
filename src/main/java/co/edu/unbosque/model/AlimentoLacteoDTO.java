@@ -7,23 +7,23 @@ public class AlimentoLacteoDTO extends Producto {
 	 */
 	private static final long serialVersionUID = 1L;
 	private boolean sinLactosa;
-	private String tipoDeLeche;
+	private String tipoDeLacteo;
 
 	public AlimentoLacteoDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AlimentoLacteoDTO(boolean sinLactosa, String tipoDeLeche) {
+	public AlimentoLacteoDTO(boolean sinLactosa, String tipoDeLacteo) {
 		super();
 		this.sinLactosa = sinLactosa;
-		this.tipoDeLeche = tipoDeLeche;
+		this.tipoDeLacteo = tipoDeLacteo;
 	}
 
 	public AlimentoLacteoDTO(int precio, String id, String nombre, String imagen, boolean sinLactosa,
-			String tipoDeLeche) {
+			String tipoDeLacteo) {
 		super(precio, id, nombre, imagen);
 		this.sinLactosa = sinLactosa;
-		this.tipoDeLeche = tipoDeLeche;
+		this.tipoDeLacteo = tipoDeLacteo;
 	}
 
 	public AlimentoLacteoDTO(int precio, String id, String nombre, String imagen) {
@@ -39,12 +39,12 @@ public class AlimentoLacteoDTO extends Producto {
 		this.sinLactosa = sinLactosa;
 	}
 
-	public String getTipoDeLeche() {
-		return tipoDeLeche;
+	public String getTipoDeLacteo() {
+		return tipoDeLacteo;
 	}
 
-	public void setTipoDeLeche(String tipoDeLeche) {
-		this.tipoDeLeche = tipoDeLeche;
+	public void setTipoDeLacteo(String tipoDeLacteo) {
+		this.tipoDeLacteo = tipoDeLacteo;
 	}
 
 	public static long getSerialversionuid() {
@@ -53,7 +53,7 @@ public class AlimentoLacteoDTO extends Producto {
 
 	@Override
 	public String toString() {
-		return "AlimentoLacteoDTO [sinLactosa=" + sinLactosa + ", tipoDeLeche=" + tipoDeLeche + "]";
+		return "AlimentoLacteoDTO [sinLactosa=" + sinLactosa + ", tipoDeLacteo=" + tipoDeLacteo + "]";
 	}
 
 }
