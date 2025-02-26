@@ -14,6 +14,7 @@ public class RopaDAO implements CRUDOperation<RopaDTO> {
 		listaRopa = new ArrayList<>();
 		FileHandler.checkFolder();
 		readSerializable();
+		
 	}
 
 	public ArrayList<RopaDTO> getListaRopa() {
