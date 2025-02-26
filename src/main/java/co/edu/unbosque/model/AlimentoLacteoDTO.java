@@ -2,15 +2,12 @@ package co.edu.unbosque.model;
 
 public class AlimentoLacteoDTO extends Producto {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private boolean sinLactosa;
 	private String tipoDeLacteo;
 
 	public AlimentoLacteoDTO() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public AlimentoLacteoDTO(boolean sinLactosa, String tipoDeLacteo) {
@@ -28,7 +25,6 @@ public class AlimentoLacteoDTO extends Producto {
 
 	public AlimentoLacteoDTO(int precio, String id, String nombre, String imagen) {
 		super(precio, id, nombre, imagen);
-		// TODO Auto-generated constructor stub
 	}
 
 	public boolean isSinLactosa() {
@@ -53,7 +49,7 @@ public class AlimentoLacteoDTO extends Producto {
 
 	@Override
 	public String toString() {
-		return "AlimentoLacteoDTO [sinLactosa=" + sinLactosa + ", tipoDeLacteo=" + tipoDeLacteo + "]";
+		return super.toString() + "AlimentoLacteoDTO [sinLactosa=" + sinLactosa + ", tipoDeLacteo=" + tipoDeLacteo + "]";
 	}
 
 }

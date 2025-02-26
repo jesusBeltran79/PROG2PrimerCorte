@@ -2,15 +2,12 @@ package co.edu.unbosque.model;
 
 public class AlimentoCarnicoDTO extends Producto {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String tipoDeCarne;
 	private boolean procesada;
 
 	public AlimentoCarnicoDTO() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public AlimentoCarnicoDTO(String tipoDeCarne, boolean procesada) {
@@ -48,7 +45,7 @@ public class AlimentoCarnicoDTO extends Producto {
 
 	@Override
 	public String toString() {
-		return "AlimentoCarnicoDTO [tipoDeCarne=" + tipoDeCarne + ", procesada=" + procesada + "]";
+		return super.toString()+"AlimentoCarnicoDTO [tipoDeCarne=" + tipoDeCarne + ", procesada=" + procesada + "]";
 	}
 
 }

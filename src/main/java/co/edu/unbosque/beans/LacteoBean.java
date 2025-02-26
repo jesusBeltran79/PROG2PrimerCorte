@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import co.edu.unbosque.model.AlimentoLacteoDTO;
+import co.edu.unbosque.model.persistence.AlimentoLacteoDAO;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -25,11 +26,20 @@ public class LacteoBean implements Serializable {
 	private String tipoDeLeche;
 	private List<AlimentoLacteoDTO> lista = new ArrayList<>();
 	private AlimentoLacteoDTO usuarioSeleccionado;
+	private AlimentoLacteoDAO lacteoDAO;
+
+	public LacteoBean() {
+		/*
+		if (lacteoDAO.getListaAliLacteo().isEmpty()) {
+			lista = lacteoDAO.getListaAliLacteo();
+		}
+		*/
+	}
 
 	public void guardar() {
-
 		AlimentoLacteoDTO nuevoUsuario = new AlimentoLacteoDTO(precio, id, nombre, imagen, sinLactosa, tipoDeLeche);
 		lista.add(nuevoUsuario);
+		lacteoDAO.crear(nuevoUsuario);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alimento lacteo agregado correctamente"));
 		limpiarFormulario();
 	}
@@ -40,6 +50,7 @@ public class LacteoBean implements Serializable {
 			AlimentoLacteoDTO u = iterator.next();
 			if (u.equals(usuario)) {
 				iterator.remove();
+				lacteoDAO.eliminar(u);
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage("Alimento lacteo eliminado correctamente"));
 				break;

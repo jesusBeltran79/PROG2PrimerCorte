@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import co.edu.unbosque.model.JugueteDTO;
-
+import co.edu.unbosque.model.persistence.JugueteDAO;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -25,15 +25,19 @@ public class JugueteBean implements Serializable {
 	private boolean esMas18;
 	private List<JugueteDTO> lista = new ArrayList<>();
 	private JugueteDTO usuarioSeleccionado;
+	private JugueteDAO jugueteDAO;
 
 	public JugueteBean() {
+
 		usuarioSeleccionado = new JugueteDTO();
 	}
 
-	public void guardar() {
+	// lista = jugueteDAO.getListaJuguete();
 
+	public void guardar() {
 		JugueteDTO nuevoUsuario = new JugueteDTO(precio, id, nombre, imagen, esMas18);
 		lista.add(nuevoUsuario);
+		jugueteDAO.crear(nuevoUsuario);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Juguete agregado correctamente"));
 		limpiarFormulario();
 	}
@@ -44,6 +48,7 @@ public class JugueteBean implements Serializable {
 			JugueteDTO u = iterator.next();
 			if (u.equals(usuario)) {
 				iterator.remove();
+				jugueteDAO.eliminar(u);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Juguete eliminado correctamente"));
 				break;
 			}

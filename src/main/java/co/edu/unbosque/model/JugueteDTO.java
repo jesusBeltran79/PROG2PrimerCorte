@@ -2,14 +2,11 @@ package co.edu.unbosque.model;
 
 public class JugueteDTO extends Producto {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private boolean esMas18;
 
 	public JugueteDTO() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public JugueteDTO(boolean esMas18) {
@@ -24,7 +21,6 @@ public class JugueteDTO extends Producto {
 
 	public JugueteDTO(int precio, String id, String nombre, String imagen) {
 		super(precio, id, nombre, imagen);
-		// TODO Auto-generated constructor stub
 	}
 
 	public boolean isEsMas18() {
@@ -41,7 +37,7 @@ public class JugueteDTO extends Producto {
 
 	@Override
 	public String toString() {
-		return "JugueteDTO [esMas18=" + esMas18 + "]";
+		return super.toString() + "JugueteDTO [esMas18=" + esMas18 + "]";
 	}
 
 }

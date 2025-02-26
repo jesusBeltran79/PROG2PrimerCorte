@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import co.edu.unbosque.model.AlimentoCarnicoDTO;
-
+import co.edu.unbosque.model.persistence.AlimentoCarnicoDAO;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -26,6 +26,7 @@ public class CarnicoBean implements Serializable {
 	private boolean procesada;
 	private List<AlimentoCarnicoDTO> lista = new ArrayList<>();
 	private AlimentoCarnicoDTO usuarioSeleccionado;
+	private AlimentoCarnicoDAO carnicoDAO;
 
 	public CarnicoBean() {
 		// TODO Auto-generated constructor stub
@@ -33,9 +34,9 @@ public class CarnicoBean implements Serializable {
 	}
 
 	public void guardar() {
-
 		AlimentoCarnicoDTO nuevoUsuario = new AlimentoCarnicoDTO(precio, id, nombre, imagen, tipoDeCarne, procesada);
 		lista.add(nuevoUsuario);
+		carnicoDAO.crear(nuevoUsuario);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alimento carnico agregado correctamente"));
 		limpiarFormulario();
 	}
@@ -46,6 +47,7 @@ public class CarnicoBean implements Serializable {
 			AlimentoCarnicoDTO u = iterator.next();
 			if (u.equals(usuario)) {
 				iterator.remove();
+				carnicoDAO.eliminar(u);
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage("Alimento carnico eliminado correctamente"));
 				break;

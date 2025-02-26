@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import co.edu.unbosque.model.AlimentoLacteoDTO;
 
 public class AlimentoLacteoDAO implements CRUDOperation<AlimentoLacteoDTO> {
+	
 	private ArrayList<AlimentoLacteoDTO> listaAliLacteo;
 
-	private final String SERIAL_NAME = "lista_lacteo.dat";
+	private final String SERIAL_NAME = "listaLacteo.dat";
 
 	public AlimentoLacteoDAO() {
 		listaAliLacteo = new ArrayList<>();
@@ -15,8 +16,19 @@ public class AlimentoLacteoDAO implements CRUDOperation<AlimentoLacteoDTO> {
 		readSerializable();
 	}
 
+	public ArrayList<AlimentoLacteoDTO> getListaAliLacteo() {
+		return listaAliLacteo;
+	}
+
+	public void setListaAliLacteo(ArrayList<AlimentoLacteoDTO> listaAliLacteo) {
+		this.listaAliLacteo = listaAliLacteo;
+	}
+
 	@Override
 	public void crear(AlimentoLacteoDTO nuevoDato) {
+		if (listaAliLacteo.isEmpty()) {
+			listaAliLacteo = new ArrayList<>();
+		}
 		listaAliLacteo.add(nuevoDato);
 		writeSerializable();
 

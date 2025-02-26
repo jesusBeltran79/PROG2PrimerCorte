@@ -2,15 +2,12 @@ package co.edu.unbosque.model;
 
 public class RopaDTO extends Producto {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String talla;
 	private String tipoDePrenda;
 
 	public RopaDTO() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public RopaDTO(String talla, String tipoDePrenda) {
@@ -27,7 +24,6 @@ public class RopaDTO extends Producto {
 
 	public RopaDTO(int precio, String id, String nombre, String imagen) {
 		super(precio, id, nombre, imagen);
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getTalla() {
@@ -52,7 +48,7 @@ public class RopaDTO extends Producto {
 
 	@Override
 	public String toString() {
-		return "RopaDTO [talla=" + talla + ", tipoDePrenda=" + tipoDePrenda + "]";
+		return super.toString()+"RopaDTO [talla=" + talla + ", tipoDePrenda=" + tipoDePrenda + "]";
 	}
 
 }

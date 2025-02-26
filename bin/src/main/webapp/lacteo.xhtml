@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>AlimentosLacteosTabla</title>
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+		rel="stylesheet" />
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</h:head>
+
+<h:body>
+	<h1>Tabla de Alimentos Lacteos</h1>
+	<hr />
+	<h:form id="form">
+		<p:growl id="msgs" showDetail="true" />
+
+		<div class="card">
+			<h5 class="mt-0">Gestión de Alimentos Lacteos</h5>
+			<p:tabView>
+				<!-- TAB CREAR -->
+				<p:tab title="Crear">
+					<h:panelGrid columns="2" style="width:100%">
+						<h:outputLabel for="precio" value="Precio:" />
+						<h:inputText class="form-control" id="precio"
+							value="#{LacteoBean.precio}">
+							<f:convertNumber integerOnly="true" />
+						</h:inputText>
+
+						<h:outputLabel for="id" value="ID:" />
+						<h:inputText class="form-control" id="id" value="#{LacteoBean.id}" />
+
+						<h:outputLabel for="nombre" value="Nombre:" />
+						<h:inputText class="form-control" id="nombre"
+							value="#{LacteoBean.nombre}" />
+
+						<h:outputLabel for="imagen" value="Imagen:" />
+						<h:inputText class="form-control" id="imagen"
+							value="#{LacteoBean.imagen}" />
+
+						<h:outputLabel value="tieneLactosa?" />
+						<h:selectBooleanCheckbox id="lactosa"
+							value="#{LacteoBean.sinLactosa}" />
+
+						<div class="ui-fluid formgrid grid">
+							<div class="field col-12 md:col-4">
+								<p:outputLabel for="@next" value="TipoDeLacteo:" />
+								<p:selectOneMenu id="option" value="#{LacteoBean.tipoDeLeche}">
+									<f:selectItem itemLabel="Selecciona una" itemValue="" />
+									<f:selectItem itemLabel="Leche de vaca"
+										itemValue="Leche de vaca" />
+									<f:selectItem itemLabel="Leche de cabra"
+										itemValue="Leche de cabra" />
+									<f:selectItem itemLabel="Leche de almendras"
+										itemValue="leche de almendras " />
+									<f:selectItem itemLabel="Queso" itemValue="Queso" />
+									<f:selectItem itemLabel="Mantequilla" itemValue="Mantequilla" />
+									<f:selectItem itemLabel="Yogurt" itemValue="Yogurt" />
+									<f:selectItem itemLabel="Helado" itemValue="Helado" />
+									<f:facet name="footer">
+										<p:divider styleClass="mt-0" />
+										<h:outputText value="7 opciones" style="font-weight:bold;" />
+									</f:facet>
+								</p:selectOneMenu>
+							</div>
+						</div>
+
+
+
+					</h:panelGrid>
+
+					<p:commandButton class="ui-button-primary"
+						action="#{LacteoBean.guardar}" value="Guardar" update="@form" />
+				</p:tab>
+
+				<!-- TAB ELIMINAR -->
+				<p:tab title="Eliminar">
+					<p:dataTable var="lacteo" value="#{LacteoBean.lista}"
+						selectionMode="single"
+						selection="#{LacteoBean.usuarioSeleccionado}"
+						rowKey="#{Lacteo.nombre}" style="width:100%">
+						<p:column headerText="Nombre">
+							<h:outputText value="#{lacteo.nombre}" />
+						</p:column>
+						<p:column headerText="Acciones">
+							<p:commandButton value="Eliminar"
+								action="#{LacteoBean.eliminar(lacteo)}" update="@form"
+								styleClass="ui-button-danger" />
+						</p:column>
+					</p:dataTable>
+				</p:tab>
+
+				<!-- TAB ACTUALIZAR -->
+				<p:tab title="Actualizar">
+					<h:outputText
+						value="Seleccione un alimento lacteo para actualizar:" />
+					<p:dataTable var="lacteo" value="#{LacteoBean.lista}"
+						selectionMode="single"
+						selection="#{LacteoBean.usuarioSeleccionado}"
+						rowKey="#{lacteo.id}" style="width:100%">
+						<p:column headerText="Nombre">
+							<h:outputText value="#{lacteo.nombre}" />
+						</p:column>
+					</p:dataTable>
+					<p:commandButton value="Actualizar"
+						action="#{LacteoBean.actualizar}" update="@form"
+						styleClass="ui-button-primary" />
+				</p:tab>
+
+				<!-- TAB MOSTRAR -->
+				<p:tab title="Mostrar">
+					<p:dataTable var="lacteo" value="#{LacteoBean.lista}"
+						style="width:100%">
+						<p:column headerText="Precio">
+							<h:outputText value="#{lacteo.precio}" />
+						</p:column>
+						<p:column headerText="ID">
+							<h:outputText value="#{lacteo.id}" />
+						</p:column>
+						<p:column headerText="Nombre">
+							<h:outputText value="#{lacteo.nombre}" />
+						</p:column>
+						<p:column headerText="Imagen">
+							<h:outputText value="#{lacteo.imagen}" />
+						</p:column>
+						<p:column headerText="Tipo de lacteo">
+							<h:outputText value="#{lacteo.tipoDeLacteo}" />
+						</p:column>
+						<p:column headerText="Tiene Lactosa?">
+							<h:outputText value="#{lacteo.sinLactosa}" />
+						</p:column>
+					</p:dataTable>
+				</p:tab>
+			</p:tabView>
+		</div>
+	</h:form>
+</h:body>
+</html>
