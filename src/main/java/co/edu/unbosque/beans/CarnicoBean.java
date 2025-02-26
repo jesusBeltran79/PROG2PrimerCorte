@@ -27,6 +27,11 @@ public class CarnicoBean implements Serializable {
 	private List<AlimentoCarnicoDTO> lista = new ArrayList<>();
 	private AlimentoCarnicoDTO usuarioSeleccionado;
 
+	public CarnicoBean() {
+		// TODO Auto-generated constructor stub
+		usuarioSeleccionado = new AlimentoCarnicoDTO();
+	}
+
 	public void guardar() {
 
 		AlimentoCarnicoDTO nuevoUsuario = new AlimentoCarnicoDTO(precio, id, nombre, imagen, tipoDeCarne, procesada);

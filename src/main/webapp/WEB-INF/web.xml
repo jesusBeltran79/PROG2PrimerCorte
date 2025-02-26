@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="6.0">
 	<display-name>Prog2ProyectoPrimerCorte</display-name>
 	<welcome-file-list>
-		<welcome-file>ropa.xhtml</welcome-file>
+		<welcome-file>carnico.xhtml</welcome-file>
 
 	</welcome-file-list>
 	<servlet>

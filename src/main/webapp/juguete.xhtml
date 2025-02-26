@@ -83,10 +83,42 @@
 							<h:outputText value="#{juguete.nombre}" />
 						</p:column>
 					</p:dataTable>
+
+					<!-- FORMULARIO DE EDICIÓN -->
+					<h:panelGrid columns="2" style="width:100%">
+						<h:outputLabel for="precioEdit" value="Precio:" />
+						<h:inputText id="precioEdit" class="form-control"
+							value="#{JugueteBean.usuarioSeleccionado.precio}"
+							rendered="#{not empty JugueteBean.usuarioSeleccionado}">
+							<f:convertNumber integerOnly="true" />
+						</h:inputText>
+
+						<h:outputLabel for="nombreEdit" value="Nombre:" />
+						<h:inputText id="nombreEdit" class="form-control"
+							value="#{JugueteBean.usuarioSeleccionado.nombre}"
+							rendered="#{not empty JugueteBean.usuarioSeleccionado}" />
+
+						<h:outputLabel for="imagenEdit" value="Imagen:" />
+
+						<h:inputText id="imagenEdit" class="form-control"
+							value="#{JugueteBean.usuarioSeleccionado.imagen}"
+							rendered="#{not empty JugueteBean.usuarioSeleccionado}" />
+
+						<h:outputLabel for="mayorde18Edit" value="Mayor de 18:" />
+						<h:selectBooleanCheckbox id="mayorde18Edit"
+							value="#{JugueteBean.usuarioSeleccionado.esMas18}"
+							rendered="#{not empty JugueteBean.usuarioSeleccionado}" />
+					</h:panelGrid>
+
+					<p:commandButton value="Seleccionar Juguete"
+						action="#{JugueteBean.actualizar}" update="@form"
+						styleClass="ui-button-primary" />
+
 					<p:commandButton value="Actualizar"
 						action="#{JugueteBean.actualizar}" update="@form"
 						styleClass="ui-button-primary" />
 				</p:tab>
+
 
 				<!-- TAB MOSTRAR -->
 				<p:tab title="Mostrar">

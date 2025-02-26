@@ -26,6 +26,10 @@ public class JugueteBean implements Serializable {
 	private List<JugueteDTO> lista = new ArrayList<>();
 	private JugueteDTO usuarioSeleccionado;
 
+	public JugueteBean() {
+		usuarioSeleccionado = new JugueteDTO();
+	}
+
 	public void guardar() {
 
 		JugueteDTO nuevoUsuario = new JugueteDTO(precio, id, nombre, imagen, esMas18);
@@ -49,12 +53,11 @@ public class JugueteBean implements Serializable {
 	public void actualizar() {
 		if (usuarioSeleccionado != null) {
 			for (JugueteDTO u : lista) {
-				if (u.equals(usuarioSeleccionado)) {
-					u.setPrecio(precio);
-					u.setId(id);
-					u.setNombre(nombre);
-					u.setImagen(imagen);
-					u.setEsMas18(esMas18);
+				if (u.getId().equals(usuarioSeleccionado.getId())) { // Usar ID en lugar de equals
+					u.setPrecio(usuarioSeleccionado.getPrecio());
+					u.setNombre(usuarioSeleccionado.getNombre());
+					u.setImagen(usuarioSeleccionado.getImagen());
+					u.setEsMas18(usuarioSeleccionado.isEsMas18());
 					FacesContext.getCurrentInstance().addMessage(null,
 							new FacesMessage("Juguete actualizado correctamente"));
 					break;
