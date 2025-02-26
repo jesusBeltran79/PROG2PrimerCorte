@@ -5,22 +5,32 @@ import java.util.ArrayList;
 import co.edu.unbosque.model.JugueteDTO;
 
 public class JugueteDAO implements CRUDOperation<JugueteDTO> {
+	
 	private ArrayList<JugueteDTO> listaJuguete;
 
 	private final String SERIAL_NAME = "lista_juguete.dat";
 
 	public JugueteDAO() {
-		// TODO Auto-generated constructor stub
 		listaJuguete = new ArrayList<>();
 		FileHandler.checkFolder();
 		readSerializable();
 	}
 
+	public ArrayList<JugueteDTO> getListaJuguete() {
+		return listaJuguete;
+	}
+
+	public void setListaJuguete(ArrayList<JugueteDTO> listaJuguete) {
+		this.listaJuguete = listaJuguete;
+	}
+
 	@Override
 	public void crear(JugueteDTO nuevoDato) {
+		if (listaJuguete.isEmpty()) {
+			listaJuguete = new ArrayList<>();
+		}
 		listaJuguete.add(nuevoDato);
 		writeSerializable();
-
 	}
 
 	@Override
@@ -32,7 +42,6 @@ public class JugueteDAO implements CRUDOperation<JugueteDTO> {
 
 	@Override
 	public void eliminar(int pos) {
-		// TODO Auto-generated method stub
 		listaJuguete.remove(pos);
 		writeSerializable();
 
@@ -40,7 +49,6 @@ public class JugueteDAO implements CRUDOperation<JugueteDTO> {
 
 	@Override
 	public void actualizar(int pos, JugueteDTO datoActualizado) {
-		// TODO Auto-generated method stub
 		listaJuguete.set(pos, datoActualizado);
 		writeSerializable();
 
@@ -48,13 +56,11 @@ public class JugueteDAO implements CRUDOperation<JugueteDTO> {
 
 	@Override
 	public ArrayList<JugueteDTO> buscarTodo() {
-		// TODO Auto-generated method stub
 		return listaJuguete;
 	}
 
 	@Override
 	public JugueteDTO buscarUno(int pos) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

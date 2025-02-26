@@ -5,22 +5,32 @@ import java.util.ArrayList;
 import co.edu.unbosque.model.AlimentoCarnicoDTO;
 
 public class AlimentoCarnicoDAO implements CRUDOperation<AlimentoCarnicoDTO> {
+	
 	private ArrayList<AlimentoCarnicoDTO> listaAliCarnico;
 
-	private final String SERIAL_NAME = "lista_carnico.dat";
+	private final String SERIAL_NAME = "listaCarnico.dat";
 
 	public AlimentoCarnicoDAO() {
 		listaAliCarnico = new ArrayList<>();
 		FileHandler.checkFolder();
 		readSerializable();
+	}
 
+	public ArrayList<AlimentoCarnicoDTO> getListaAliCarnico() {
+		return listaAliCarnico;
+	}
+
+	public void setListaAliCarnico(ArrayList<AlimentoCarnicoDTO> listaAliCarnico) {
+		this.listaAliCarnico = listaAliCarnico;
 	}
 
 	@Override
-	public void crear(AlimentoCarnicoDTO nuevoDato) {
+	public void crear(AlimentoCarnicoDTO nuevoDato) {		
+		if (listaAliCarnico.isEmpty()) {
+		listaAliCarnico = new ArrayList<>();
+	}
 		listaAliCarnico.add(nuevoDato);
 		writeSerializable();
-
 	}
 
 	@Override

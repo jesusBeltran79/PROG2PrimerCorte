@@ -5,56 +5,60 @@ import java.util.ArrayList;
 import co.edu.unbosque.model.RopaDTO;
 
 public class RopaDAO implements CRUDOperation<RopaDTO> {
+	
 	private ArrayList<RopaDTO> listaRopa;
 
 	private final String SERIAL_NAME = "lista_ropa.dat";
 
 	public RopaDAO() {
-		// TODO Auto-generated constructor stub
 		listaRopa = new ArrayList<>();
 		FileHandler.checkFolder();
 		readSerializable();
 	}
 
+	public ArrayList<RopaDTO> getListaRopa() {
+		return listaRopa;
+	}
+
+	public void setListaRopa(ArrayList<RopaDTO> listaRopa) {
+		this.listaRopa = listaRopa;
+	}
+
 	@Override
 	public void crear(RopaDTO nuevoDato) {
+		if (listaRopa.isEmpty()) {
+			listaRopa = new ArrayList<>();
+		}
+		System.out.println(listaRopa);
 		listaRopa.add(nuevoDato);
 		writeSerializable();
-
 	}
 
 	@Override
 	public void eliminar(RopaDTO nuevoDato) {
 		listaRopa.remove(nuevoDato);
 		writeSerializable();
-
 	}
 
 	@Override
 	public void eliminar(int pos) {
-		// TODO Auto-generated method stub
 		listaRopa.remove(pos);
 		writeSerializable();
-
 	}
 
 	@Override
 	public void actualizar(int pos, RopaDTO datoActualizado) {
-		// TODO Auto-generated method stub
 		listaRopa.set(pos, datoActualizado);
 		writeSerializable();
-
 	}
 
 	@Override
 	public ArrayList<RopaDTO> buscarTodo() {
-		// TODO Auto-generated method stub
 		return listaRopa;
 	}
 
 	@Override
 	public RopaDTO buscarUno(int pos) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

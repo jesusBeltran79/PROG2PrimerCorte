@@ -4,17 +4,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>AlimentosCarnicosTabla</title>
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+		rel="stylesheet" />
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</h:head>
 
-<ui:composition template="">
-	<ui:define name="header">
-	    Add your header here or delete to use the default
-	</ui:define>
-	<ui:define name="content">
-	    Add your content here or delete to use the default
-	</ui:define>
-	<ui:define name="footer">
-	    Add your footer here or delete to use the default
-	</ui:define>
-</ui:composition>
+<h:body>
+
+<div class="card">
+    <h5 class="mt-0">Exito</h5>
+    <p:tabMenu activeIndex="#{param.i}">
+        <p:menuitem value="index" outcome="index.xhtml" icon="pi pi-fw pi-home">
+            <f:param name="i" value="0"/>
+        </p:menuitem>
+        <p:menuitem value="carnico" outcome="carnico.xhtml" icon="pi pi-fw pi-calendar">
+            <f:param name="i" value="1"/>
+        </p:menuitem>
+        <p:menuitem value="lacteo" outcome="lacteo.xhtml" icon="pi pi-fw pi-pencil">
+            <f:param name="i" value="2"/>
+        </p:menuitem>
+        <p:menuitem value="ropa" outcome="ropa.xhtml" icon="pi pi-fw pi-file">
+            <f:param name="i" value="3"/>
+        </p:menuitem>
+        <p:menuitem value="juguete" outcome="juguete.xhtml" icon="pi pi-fw pi-cog">
+            <f:param name="i" value="4"/>
+        </p:menuitem>
+    </p:tabMenu>
+</div>
+    
+      
+</h:body>
+
 </html>

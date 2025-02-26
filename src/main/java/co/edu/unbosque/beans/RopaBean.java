@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import co.edu.unbosque.model.RopaDTO;
+import co.edu.unbosque.model.persistence.RopaDAO;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -25,11 +26,16 @@ public class RopaBean implements Serializable {
 	private String tipoDePrenda;
 	private List<RopaDTO> lista = new ArrayList<>();
 	private RopaDTO usuarioSeleccionado;
+	private RopaDAO ropaDAO = new RopaDAO();
+
+	public RopaBean() {
+		lista = ropaDAO.getListaRopa();
+	}
 
 	public void guardar() {
-
 		RopaDTO nuevoUsuario = new RopaDTO(precio, id, nombre, imagen, talla, tipoDePrenda);
 		lista.add(nuevoUsuario);
+		ropaDAO.crear(nuevoUsuario);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Ropa agregada correctamente"));
 		limpiarFormulario();
 	}
@@ -40,6 +46,7 @@ public class RopaBean implements Serializable {
 			RopaDTO u = iterator.next();
 			if (u.equals(usuario)) {
 				iterator.remove();
+				ropaDAO.eliminar(u);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Ropa eliminada correctamente"));
 				break;
 			}

@@ -3,9 +3,7 @@ package co.edu.unbosque.model;
 import java.io.Serializable;
 
 public class Producto implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private int precio;
 	private String id;
@@ -13,7 +11,7 @@ public class Producto implements Serializable {
 	private String imagen;
 
 	public Producto() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Producto(int precio, String id, String nombre, String imagen) {
