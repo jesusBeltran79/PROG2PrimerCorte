@@ -28,30 +28,27 @@
 				<!-- TAB CREAR -->
 				<p:tab title="Crear">
 					<h:panelGrid columns="2" style="width:100%">
-						<h:outputLabel for="precio" value="Precio:" />
+						<h5>Precio:</h5>
 						<h:inputText class="form-control" id="precio"
 							value="#{LacteoBean.precio}">
 							<f:convertNumber integerOnly="true" />
 						</h:inputText>
 
-						<h:outputLabel for="id" value="ID:" />
-						<h:inputText class="form-control" id="id" value="#{LacteoBean.id}" />
-
-						<h:outputLabel for="nombre" value="Nombre:" />
+						<h5>Nombre:</h5>
 						<h:inputText class="form-control" id="nombre"
 							value="#{LacteoBean.nombre}" />
 
-						<h:outputLabel for="imagen" value="Imagen:" />
+						<h5>Imagen:</h5>
 						<h:inputText class="form-control" id="imagen"
 							value="#{LacteoBean.imagen}" />
 
-						<h:outputLabel value="tieneLactosa?" />
+						<h5>Tiene lactosa?</h5>
 						<h:selectBooleanCheckbox id="lactosa"
 							value="#{LacteoBean.sinLactosa}" />
 
 						<div class="ui-fluid formgrid grid">
 							<div class="field col-12 md:col-4">
-								<p:outputLabel for="@next" value="TipoDeLacteo:" />
+								<h5>Tipo de lacteo:</h5>
 								<p:selectOneMenu id="option" value="#{LacteoBean.tipoDeLeche}">
 									<f:selectItem itemLabel="Selecciona una" itemValue="" />
 									<f:selectItem itemLabel="Leche de vaca"
@@ -99,8 +96,7 @@
 
 				<!-- TAB ACTUALIZAR -->
 				<p:tab title="Actualizar">
-					<h:outputText
-						value="Seleccione un alimento lacteo para actualizar:" />
+					<h:outputText value="Seleccione un lacteo para actualizar:" />
 					<p:dataTable var="lacteo" value="#{LacteoBean.lista}"
 						selectionMode="single"
 						selection="#{LacteoBean.usuarioSeleccionado}"
@@ -109,6 +105,65 @@
 							<h:outputText value="#{lacteo.nombre}" />
 						</p:column>
 					</p:dataTable>
+
+					<hr></hr>
+					<!-- FORMULARIO DE EDICIÓN -->
+					<h:panelGrid columns="2" style="width:100%">
+						<h5>Precio:</h5>
+						<h:inputText id="precioEdit" class="form-control"
+							value="#{LacteoBean.usuarioSeleccionado.precio}"
+							rendered="#{not empty LacteoBean.usuarioSeleccionado}">
+							<f:convertNumber integerOnly="true" />
+						</h:inputText>
+
+						<h5>Nombre:</h5>
+						<h:inputText id="nombreEdit" class="form-control"
+							value="#{LacteoBean.usuarioSeleccionado.nombre}"
+							rendered="#{not empty LacteoBean.usuarioSeleccionado}" />
+
+						<h5>Imagen:</h5>
+
+						<h:inputText id="imagenEdit" class="form-control"
+							value="#{LacteoBean.usuarioSeleccionado.imagen}"
+							rendered="#{not empty LacteoBean.usuarioSeleccionado}" />
+
+						<h5>Tiene lactosa?</h5>
+						<h:selectBooleanCheckbox id="sinLactosaEdit"
+							value="#{LacteoBean.usuarioSeleccionado.sinLactosa}"
+							rendered="#{not empty LacteoBean.usuarioSeleccionado}" />
+					</h:panelGrid>
+
+					<div class="ui-fluid formgrid grid">
+						<div class="field col-12 md:col-4">
+							<h5>Tipo de lacteo:</h5>
+							<p:selectOneMenu id="optionUpd"
+								value="#{LacteoBean.usuarioSeleccionado.tipoDeLacteo}"
+								rendered="#{not empty LacteoBean.usuarioSeleccionado}">
+								<f:selectItem itemLabel="Selecciona una" itemValue="" />
+								<f:selectItem itemLabel="Leche de vaca"
+									itemValue="Leche de vaca" />
+								<f:selectItem itemLabel="Leche de cabra"
+									itemValue="Leche de cabra" />
+								<f:selectItem itemLabel="Leche de almendras"
+									itemValue="leche de almendras " />
+								<f:selectItem itemLabel="Queso" itemValue="Queso" />
+								<f:selectItem itemLabel="Mantequilla" itemValue="Mantequilla" />
+								<f:selectItem itemLabel="Yogurt" itemValue="Yogurt" />
+								<f:selectItem itemLabel="Helado" itemValue="Helado" />
+								<f:facet name="footer">
+									<p:divider styleClass="mt-0" />
+									<h:outputText value="7 opciones" style="font-weight:bold;" />
+								</f:facet>
+							</p:selectOneMenu>
+						</div>
+					</div>
+
+
+					<p:commandButton value="Seleccionar lacteo"
+						action="#{LacteoBean.ejecutarAccion}" update="@form"
+						rendered="#{LacteoBean.botonVisible}"
+						styleClass="ui-button-primary" />
+
 					<p:commandButton value="Actualizar"
 						action="#{LacteoBean.actualizar}" update="@form"
 						styleClass="ui-button-primary" />
@@ -127,8 +182,9 @@
 						<p:column headerText="Nombre">
 							<h:outputText value="#{lacteo.nombre}" />
 						</p:column>
-						<p:column headerText="Imagen">
-							<h:outputText value="#{lacteo.imagen}" />
+						<p:column headerText="Image" exportable="false">
+							<h:graphicImage value="#{lacteo.imagen}" alt="Imagen del lacteo"
+								style="width:100%" />
 						</p:column>
 						<p:column headerText="Tipo de lacteo">
 							<h:outputText value="#{lacteo.tipoDeLacteo}" />

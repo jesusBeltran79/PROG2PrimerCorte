@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import co.edu.unbosque.model.AlimentoLacteoDTO;
 import co.edu.unbosque.model.persistence.AlimentoLacteoDAO;
@@ -24,22 +25,24 @@ public class LacteoBean implements Serializable {
 	private String imagen;
 	private boolean sinLactosa;
 	private String tipoDeLeche;
+	private boolean botonVisible = true;
+
 	private List<AlimentoLacteoDTO> lista = new ArrayList<>();
 	private AlimentoLacteoDTO usuarioSeleccionado;
 	private AlimentoLacteoDAO lacteoDAO;
 
 	public LacteoBean() {
-		/*
-		if (lacteoDAO.getListaAliLacteo().isEmpty()) {
-			lista = lacteoDAO.getListaAliLacteo();
-		}
-		*/
+		usuarioSeleccionado = new AlimentoLacteoDTO();
 	}
 
 	public void guardar() {
-		AlimentoLacteoDTO nuevoUsuario = new AlimentoLacteoDTO(precio, id, nombre, imagen, sinLactosa, tipoDeLeche);
+		Random r = new Random();
+		int aleatorio = 1000000 + r.nextInt(9000000);
+		String identificacion = String.valueOf(aleatorio);
+		AlimentoLacteoDTO nuevoUsuario = new AlimentoLacteoDTO(precio, identificacion, nombre, imagen, sinLactosa,
+				tipoDeLeche);
 		lista.add(nuevoUsuario);
-		lacteoDAO.crear(nuevoUsuario);
+
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alimento lacteo agregado correctamente"));
 		limpiarFormulario();
 	}
@@ -50,7 +53,7 @@ public class LacteoBean implements Serializable {
 			AlimentoLacteoDTO u = iterator.next();
 			if (u.equals(usuario)) {
 				iterator.remove();
-				lacteoDAO.eliminar(u);
+
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage("Alimento lacteo eliminado correctamente"));
 				break;
@@ -84,6 +87,18 @@ public class LacteoBean implements Serializable {
 		this.imagen = "";
 		this.sinLactosa = false;
 		this.tipoDeLeche = "";
+	}
+
+	public boolean isBotonVisible() {
+		return botonVisible;
+	}
+
+	public void ejecutarAccion() {
+		// Lógica del botón
+		System.out.println("Botón presionado");
+
+		// Ocultar el botón después de presionarlo
+		botonVisible = false;
 	}
 
 	public int getPrecio() {

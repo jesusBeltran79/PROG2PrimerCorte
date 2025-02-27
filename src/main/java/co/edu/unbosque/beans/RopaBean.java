@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import co.edu.unbosque.model.RopaDTO;
 import co.edu.unbosque.model.persistence.RopaDAO;
@@ -24,6 +25,7 @@ public class RopaBean implements Serializable {
 	private String imagen;
 	private String talla;
 	private String tipoDePrenda;
+	private boolean botonVisible = true;
 	private List<RopaDTO> lista = new ArrayList<>();
 	private RopaDTO usuarioSeleccionado;
 	private RopaDAO ropaDAO = new RopaDAO();
@@ -33,9 +35,13 @@ public class RopaBean implements Serializable {
 	}
 
 	public void guardar() {
-		RopaDTO nuevoUsuario = new RopaDTO(precio, id, nombre, imagen, talla, tipoDePrenda);
+
+		Random r = new Random();
+		int aleatorio = 1000000 + r.nextInt(9000000);
+		String identificacion = String.valueOf(aleatorio);
+		RopaDTO nuevoUsuario = new RopaDTO(precio, identificacion, nombre, imagen, talla, tipoDePrenda);
 		lista.add(nuevoUsuario);
-		ropaDAO.crear(nuevoUsuario);
+
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Ropa agregada correctamente"));
 		limpiarFormulario();
 	}
@@ -46,7 +52,7 @@ public class RopaBean implements Serializable {
 			RopaDTO u = iterator.next();
 			if (u.equals(usuario)) {
 				iterator.remove();
-				ropaDAO.eliminar(u);
+
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Ropa eliminada correctamente"));
 				break;
 			}
@@ -79,6 +85,18 @@ public class RopaBean implements Serializable {
 		this.imagen = "";
 		this.talla = "";
 		this.tipoDePrenda = "";
+	}
+
+	public boolean isBotonVisible() {
+		return botonVisible;
+	}
+
+	public void ejecutarAccion() {
+		// Lógica del botón
+		System.out.println("Botón presionado");
+
+		// Ocultar el botón después de presionarlo
+		botonVisible = false;
 	}
 
 	public int getPrecio() {

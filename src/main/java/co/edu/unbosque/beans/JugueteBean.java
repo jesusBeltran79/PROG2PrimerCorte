@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import co.edu.unbosque.model.JugueteDTO;
 import co.edu.unbosque.model.persistence.JugueteDAO;
@@ -23,6 +24,7 @@ public class JugueteBean implements Serializable {
 	private String nombre;
 	private String imagen;
 	private boolean esMas18;
+	private boolean botonVisible = true;
 	private List<JugueteDTO> lista = new ArrayList<>();
 	private JugueteDTO usuarioSeleccionado;
 	private JugueteDAO jugueteDAO;
@@ -35,9 +37,13 @@ public class JugueteBean implements Serializable {
 	// lista = jugueteDAO.getListaJuguete();
 
 	public void guardar() {
-		JugueteDTO nuevoUsuario = new JugueteDTO(precio, id, nombre, imagen, esMas18);
+
+		Random r = new Random();
+		int aleatorio = 1000000 + r.nextInt(9000000);
+		String identificacion = String.valueOf(aleatorio);
+		JugueteDTO nuevoUsuario = new JugueteDTO(precio, identificacion, nombre, imagen, esMas18);
 		lista.add(nuevoUsuario);
-		jugueteDAO.crear(nuevoUsuario);
+
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Juguete agregado correctamente"));
 		limpiarFormulario();
 	}
@@ -48,7 +54,7 @@ public class JugueteBean implements Serializable {
 			JugueteDTO u = iterator.next();
 			if (u.equals(usuario)) {
 				iterator.remove();
-				jugueteDAO.eliminar(u);
+
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Juguete eliminado correctamente"));
 				break;
 			}
@@ -77,6 +83,18 @@ public class JugueteBean implements Serializable {
 		this.nombre = "";
 		this.imagen = "";
 		this.esMas18 = false;
+	}
+
+	public boolean isBotonVisible() {
+		return botonVisible;
+	}
+
+	public void ejecutarAccion() {
+		// Lógica del botón
+		System.out.println("Botón presionado");
+
+		// Ocultar el botón después de presionarlo
+		botonVisible = false;
 	}
 
 	public int getPrecio() {

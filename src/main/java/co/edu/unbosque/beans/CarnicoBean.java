@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import co.edu.unbosque.model.AlimentoCarnicoDTO;
 import co.edu.unbosque.model.persistence.AlimentoCarnicoDAO;
@@ -24,6 +25,7 @@ public class CarnicoBean implements Serializable {
 	private String imagen;
 	private String tipoDeCarne;
 	private boolean procesada;
+	private boolean botonVisible = true;
 	private List<AlimentoCarnicoDTO> lista = new ArrayList<>();
 	private AlimentoCarnicoDTO usuarioSeleccionado;
 	private AlimentoCarnicoDAO carnicoDAO;
@@ -34,9 +36,14 @@ public class CarnicoBean implements Serializable {
 	}
 
 	public void guardar() {
-		AlimentoCarnicoDTO nuevoUsuario = new AlimentoCarnicoDTO(precio, id, nombre, imagen, tipoDeCarne, procesada);
+		Random r = new Random();
+		int aleatorio = 1000000 + r.nextInt(9000000);
+		String identificacion = String.valueOf(aleatorio);
+
+		AlimentoCarnicoDTO nuevoUsuario = new AlimentoCarnicoDTO(precio, identificacion, nombre, imagen, tipoDeCarne,
+				procesada);
 		lista.add(nuevoUsuario);
-		carnicoDAO.crear(nuevoUsuario);
+
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alimento carnico agregado correctamente"));
 		limpiarFormulario();
 	}
@@ -47,7 +54,7 @@ public class CarnicoBean implements Serializable {
 			AlimentoCarnicoDTO u = iterator.next();
 			if (u.equals(usuario)) {
 				iterator.remove();
-				carnicoDAO.eliminar(u);
+
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage("Alimento carnico eliminado correctamente"));
 				break;
@@ -80,6 +87,18 @@ public class CarnicoBean implements Serializable {
 		this.imagen = "";
 		this.tipoDeCarne = "";
 		this.procesada = false;
+	}
+
+	public boolean isBotonVisible() {
+		return botonVisible;
+	}
+
+	public void ejecutarAccion() {
+		// Lógica del botón
+		System.out.println("Botón presionado");
+
+		// Ocultar el botón después de presionarlo
+		botonVisible = false;
 	}
 
 	public int getPrecio() {
