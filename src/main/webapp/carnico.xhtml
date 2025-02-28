@@ -134,24 +134,55 @@ body {
 						</p:dataTable>
 					</p:tab>
 
-					<p:tab title="Actualizar">
-						<div class="table-container">
-							<p:dataTable var="carnico" value="#{CarnicoBean.lista}"
-								selectionMode="single"
-								selection="#{CarnicoBean.usuarioSeleccionado}"
-								rowKey="#{carnico.id}" style="width:100%">
-								<p:column headerText="ID">
-									<h:outputText value="#{carnico.id}" />
-								</p:column>
-								<p:column headerText="Nombre">
-									<h:outputText value="#{carnico.nombre}" />
-								</p:column>
-								<p:column headerText="Acciones">
-									<p:commandButton value="Editar"
-										action="#{CarnicoBean.cargarDatos(carnico)}" update="@form" />
-								</p:column>
-							</p:dataTable>
-						</div>
+				<!-- TAB ACTUALIZAR -->
+				<p:tab title="Actualizar">
+					<h:outputText value="Seleccione la carne para actualizar:" />
+					<p:dataTable var="carnico" value="#{CarnicoBean.lista}"
+						selectionMode="single"
+						selection="#{CarnicoBean.usuarioSeleccionado}"
+						rowKey="#{carnico.id}" style="width:100%">
+						<p:column headerText="Nombre">
+							<h:outputText value="#{carnico.nombre}" />
+						</p:column>
+					</p:dataTable>
+					<hr></hr>
+					
+					<!-- FORMULARIO DE EDICIÓN -->
+					<h:panelGrid columns="2" style="width:100%">
+						<h5>Precio:</h5>
+						<h:inputText id="precioEdit" class="form-control"
+							value="#{JugueteBean.usuarioSeleccionado.precio}"
+							rendered="#{not empty JugueteBean.usuarioSeleccionado}">
+							<f:convertNumber integerOnly="true" />
+						</h:inputText>
+
+						<h5>Nombre:</h5>
+						<h:inputText id="nombreEdit" class="form-control"
+							value="#{JugueteBean.usuarioSeleccionado.nombre}"
+							rendered="#{not empty JugueteBean.usuarioSeleccionado}" />
+
+						<h5>Imagen:</h5>
+
+						<h:inputText id="imagenEdit" class="form-control"
+							value="#{JugueteBean.usuarioSeleccionado.imagen}"
+							rendered="#{not empty JugueteBean.usuarioSeleccionado}" />
+
+						<h5>Es para mayores de 18?</h5>
+						<h:selectBooleanCheckbox id="mayorde18Edit"
+							value="#{JugueteBean.usuarioSeleccionado.esMas18}"
+							rendered="#{not empty JugueteBean.usuarioSeleccionado}" />
+							
+					</h:panelGrid>
+					<p:commandButton value="Seleccionar juguete"
+						action="#{JugueteBean.ejecutarAccion}"
+						rendered="#{JugueteBean.botonVisible}" update="@form"
+						styleClass="ui-button-primary" />
+					<p:commandButton value="Actualizar"
+						action="#{JugueteBean.actualizar}" update="@form"
+						styleClass="ui-button-primary" />
+
+
+				</p:tab>
 
 						<div class="text-center mt-3">
 							<p:commandButton class="ui-button-secondary"

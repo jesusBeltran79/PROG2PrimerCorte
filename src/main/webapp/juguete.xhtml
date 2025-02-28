@@ -8,205 +8,140 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Jugueteria</title>
+	<title>JuguetesTabla</title>
 	<link
 		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 		rel="stylesheet" />
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-	<style>
-body {
-	background-image:
-		url('https://constructivamente.com/wp-content/uploads/2021/11/ce2e093a-bd04-4d83-b610-1a0449214ff9.jpeg');
-	background-size: cover;
-	background-position: center;
-	background-attachment: fixed;
-	background-repeat: no-repeat;
-}
-
-.container {
-	background-color: rgba(0, 0, 0, 0.85) !important;
-	/* Negro translúcido */
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.ui-datatable {
-	background-color: rgba(0, 0, 0, 0.85) !important;
-	/* Fondo negro translúcido */
-	color: white !important;
-	border: 2px solid white !important;
-	border-radius: 8px; /* Bordes redondeados */
-}
-
-.ui-datatable th {
-	background-color: rgba(0, 0, 0, 0.85) !important;
-	/* Fondo negro translúcido */
-	color: white !important;
-	border: 2px solid white !important;
-	text-align: center;
-}
-
-.ui-datatable td {
-	background-color: rgba(0, 0, 0, 0.85) !important;
-	/* Color uniforme negro translúcido */
-	color: white !important;
-	border: 2px solid white !important;
-	text-align: center;
-}
-
-.ui-widget-content {
-	background-color: rgba(0, 0, 0, 0.85) !important;
-	color: white !important;
-}
-
-.ui-datatable-tablewrapper {
-	background-color: rgba(245, 213, 0, 0.9) !important;
-}
-</style>
 </h:head>
 
 <h:body>
-	<div class="container">
-		<h5 class="text-center"
-			style="font-size: 70px; font-family: 'Playfair Display', serif; font-weight: bold; color: white; text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);">
-			Sección de Juguetes</h5>
-		<h:form id="form">
-			<p:growl id="msgs" showDetail="true" />
+	<h1>Tabla de Juguetes</h1>
+	<hr />
+	<h:form id="form">
+		<p:growl id="msgs" showDetail="true" />
 
-			<div class="card">
-				<p:tabView>
-
-					<p:tab title="Crear">
-						<div class="table-container">
-							<h:panelGrid columns="2" style="width:100%"
-								columnClasses="p-2,p-2">
-								<h:outputLabel for="precio" value="Precio:" />
-								<h:inputText class="form-control" id="precio"
-									value="#{JugueteBean.precio}">
-									<f:convertNumber integerOnly="true" />
-								</h:inputText>
-
-								<h:outputLabel for="id" value="ID:" />
-								<h:inputText class="form-control" id="id"
-									value="#{JugueteBean.id}" />
-
-								<h:outputLabel for="nombre" value="Nombre:" />
-								<h:inputText class="form-control" id="nombre"
-									value="#{JugueteBean.nombre}" />
-
-								<h:outputLabel for="imagen" value="Imagen URL:" />
-								<h:inputText class="form-control" id="imagen"
-									value="#{JugueteBean.imagen}" />
-
-								<h:outputLabel value="Mayor de 18" />
-								<h:selectBooleanCheckbox id="mayorde18"
-									value="#{JugueteBean.esMas18}" />
-
-
-
-							</h:panelGrid>
-						</div>
-
-						<div class="text-center mt-3">
-							<p:commandButton class="ui-button-primary"
-								action="#{JugueteBean.guardar}" value="Guardar" update="@form" />
-						</div>
-					</p:tab>
-
-					<p:tab title="Mostrar">
-						<p:dataTable var="juguete" value="#{LacteoBean.lista}">
-							<p:column headerText="Precio">
-								<h:outputText value="#{juguete.precio}" />
-							</p:column>
-							<p:column headerText="ID">
-								<h:outputText value="#{juguete.id}" />
-							</p:column>
-							<p:column headerText="Nombre">
-								<h:outputText value="#{juguete.nombre}" />
-							</p:column>
-							<p:column headerText="Imagen">
-								<h:outputText value="#{juguete.imagen}" />
-							</p:column>
-							<p:column headerText="Es para mayores de 18?">
-								<h:outputText value="#{juguete.esMas18}" />
-							</p:column>
-						</p:dataTable>
-					</p:tab>
-
-					<p:tab title="Actualizar">
-						<div class="table-container">
-							<p:dataTable var="juguete" value="#{JugueteBean.lista}"
-								selectionMode="single"
-								selection="#{JugueteBean.usuarioSeleccionado}"
-								rowKey="#{juguete.id}" style="width:100%">
-								<p:column headerText="Nombre">
-									<h:outputText value="#{juguete.nombre}" />
-								</p:column>
-							</p:dataTable>
-						</div>
-
-						<div class="text-center mt-3">
-							<p:commandButton class="ui-button-secondary"
-								action="#{CarnicoBean.actualizar}" value="Actualizar"
-								update="@form" />
-						</div>
-					</p:tab>
-
+		<div class="card">
+			<h5 class="mt-0">Gestión de Juguetes</h5>
+			<p:tabView>
+				<!-- TAB CREAR -->
+				<p:tab title="Crear">
 					<h:panelGrid columns="2" style="width:100%">
-						<h:outputLabel for="precioEdit" value="Precio:" />
+						<h5>Precio:</h5>
+						<h:inputText class="form-control" id="precio"
+							value="#{JugueteBean.precio}">
+							<f:convertNumber integerOnly="true" />
+						</h:inputText>
+
+						<h5>Nombre:</h5>
+						<h:inputText class="form-control" id="nombre"
+							value="#{JugueteBean.nombre}" />
+
+						<h5>Imagen:</h5>
+						<h:inputText class="form-control" id="imagen"
+							value="#{JugueteBean.imagen}" />
+
+						<h5>Es para mayores de 18?</h5>
+						<h:selectBooleanCheckbox id="mayorde18"
+							value="#{JugueteBean.esMas18}" />
+					</h:panelGrid>
+
+					<p:commandButton class="ui-button-primary"
+						action="#{JugueteBean.guardar}" value="Guardar" update="@form" />
+				</p:tab>
+
+				<!-- TAB ELIMINAR -->
+				<p:tab title="Eliminar">
+					<p:dataTable var="juguete" value="#{JugueteBean.lista}"
+						selectionMode="single"
+						selection="#{JugueteBean.usuarioSeleccionado}"
+						rowKey="#{juguete.id}" style="width:100%">
+						<p:column headerText="Nombre">
+							<h:outputText value="#{juguete.nombre}" />
+						</p:column>
+						<p:column headerText="Acciones">
+							<p:commandButton value="Eliminar"
+								action="#{JugueteBean.eliminar(juguete)}" update="@form"
+								styleClass="ui-button-danger" />
+						</p:column>
+					</p:dataTable>
+				</p:tab>
+
+				<!-- TAB ACTUALIZAR -->
+				<p:tab title="Actualizar">
+					<h:outputText value="Seleccione un juguete para actualizar:" />
+					<p:dataTable var="juguete" value="#{JugueteBean.lista}"
+						selectionMode="single"
+						selection="#{JugueteBean.usuarioSeleccionado}"
+						rowKey="#{juguete.id}" style="width:100%">
+						<p:column headerText="Nombre">
+							<h:outputText value="#{juguete.nombre}" />
+						</p:column>
+					</p:dataTable>
+					<hr></hr>
+
+					<!-- FORMULARIO DE EDICIÓN -->
+					<h:panelGrid columns="2" style="width:100%">
+						<h5>Precio:</h5>
 						<h:inputText id="precioEdit" class="form-control"
 							value="#{JugueteBean.usuarioSeleccionado.precio}"
 							rendered="#{not empty JugueteBean.usuarioSeleccionado}">
 							<f:convertNumber integerOnly="true" />
 						</h:inputText>
 
-						<h:outputLabel for="nombreEdit" value="Nombre:" />
+						<h5>Nombre:</h5>
 						<h:inputText id="nombreEdit" class="form-control"
 							value="#{JugueteBean.usuarioSeleccionado.nombre}"
 							rendered="#{not empty JugueteBean.usuarioSeleccionado}" />
 
-						<h:outputLabel for="imagenEdit" value="Imagen:" />
+						<h5>Imagen:</h5>
 
 						<h:inputText id="imagenEdit" class="form-control"
 							value="#{JugueteBean.usuarioSeleccionado.imagen}"
 							rendered="#{not empty JugueteBean.usuarioSeleccionado}" />
 
-						<h:outputLabel for="mayorde18Edit" value="Mayor de 18:" />
+						<h5>Es para mayores de 18?</h5>
 						<h:selectBooleanCheckbox id="mayorde18Edit"
 							value="#{JugueteBean.usuarioSeleccionado.esMas18}"
 							rendered="#{not empty JugueteBean.usuarioSeleccionado}" />
 					</h:panelGrid>
-
-					<p:commandButton value="Seleccionar Juguete"
-						action="#{JugueteBean.actualizar}" update="@form"
+					<p:commandButton value="Seleccionar juguete"
+						action="#{JugueteBean.ejecutarAccion}"
+						rendered="#{JugueteBean.botonVisible}" update="@form"
 						styleClass="ui-button-primary" />
-
 					<p:commandButton value="Actualizar"
 						action="#{JugueteBean.actualizar}" update="@form"
 						styleClass="ui-button-primary" />
-				</p:tabView>
 
-				<p:tab title="Eliminar">
-					<div class="table-container">
-						<p:dataTable var="juguete" value="#{JugueteBean.lista}"
-							selectionMode="single"
-							selection="#{JugueteBean.usuarioSeleccionado}"
-							rowKey="#{Juguete.id}" style="width:100%">
-							<p:column headerText="Nombre">
-								<h:outputText value="#{juguete.nombre}" />
-							</p:column>
-							<p:column headerText="Acciones">
-								<p:commandButton value="Eliminar"
-									action="#{JugueteBean.eliminar(juguete)}" update="@form"
-									styleClass="ui-button-danger" />
-							</p:column>
-						</p:dataTable>
-					</div>
+
 				</p:tab>
-			</div>
+
+
+				<!-- TAB MOSTRAR -->
+				<p:tab title="Mostrar">
+					<p:dataTable var="juguete" value="#{JugueteBean.lista}"
+						style="width:100%">
+						<p:column headerText="Precio">
+							<h:outputText value="#{juguete.precio}" />
+						</p:column>
+						<p:column headerText="ID">
+							<h:outputText value="#{juguete.id}" />
+						</p:column>
+						<p:column headerText="Nombre">
+							<h:outputText value="#{juguete.nombre}" />
+						</p:column>
+						<p:column headerText="Image" exportable="false">
+							<h:graphicImage value="#{juguete.imagen}"
+								alt="Imagen del juguete" style="width:100%" />
+						</p:column>
+						<p:column headerText="Es para mayores de 18?">
+							<h:outputText value="#{juguete.esMas18}" />
+						</p:column>
+					</p:dataTable>
+				</p:tab>
+			</p:tabView>
+		</div>
 	</h:form>
-</div>
 </h:body>
 </html>
