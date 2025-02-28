@@ -30,7 +30,6 @@ public class RopaDAO implements CRUDOperation<RopaDTO> {
 		if (listaRopa.isEmpty()) {
 			listaRopa = new ArrayList<>();
 		}
-		System.out.println(listaRopa);
 		listaRopa.add(nuevoDato);
 		writeSerializable();
 	}

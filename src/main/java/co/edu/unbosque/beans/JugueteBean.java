@@ -27,11 +27,11 @@ public class JugueteBean implements Serializable {
 	private boolean botonVisible = true;
 	private List<JugueteDTO> lista = new ArrayList<>();
 	private JugueteDTO usuarioSeleccionado;
-	private JugueteDAO jugueteDAO;
+	private JugueteDAO jugueteDAO = new JugueteDAO();
 
 	public JugueteBean() {
-
 		usuarioSeleccionado = new JugueteDTO();
+		lista = jugueteDAO.getListaJuguete();
 	}
 
 	// lista = jugueteDAO.getListaJuguete();
@@ -42,8 +42,11 @@ public class JugueteBean implements Serializable {
 		int aleatorio = 1000000 + r.nextInt(9000000);
 		String identificacion = String.valueOf(aleatorio);
 		JugueteDTO nuevoUsuario = new JugueteDTO(precio, identificacion, nombre, imagen, esMas18);
-		lista.add(nuevoUsuario);
-
+		if (lista.isEmpty()) {
+			lista.add(nuevoUsuario);
+		} else {
+			jugueteDAO.crear(nuevoUsuario);
+		}
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Juguete agregado correctamente"));
 		limpiarFormulario();
 	}
@@ -53,8 +56,7 @@ public class JugueteBean implements Serializable {
 		while (iterator.hasNext()) {
 			JugueteDTO u = iterator.next();
 			if (u.equals(usuario)) {
-				iterator.remove();
-
+				jugueteDAO.eliminar(u);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Juguete eliminado correctamente"));
 				break;
 			}

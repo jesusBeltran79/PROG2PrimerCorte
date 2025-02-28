@@ -28,26 +28,25 @@
 				<!-- TAB CREAR -->
 				<p:tab title="Crear">
 					<h:panelGrid columns="2" style="width:100%">
-						<h:outputLabel for="precio" value="Precio:" />
+						<h5>Precio:</h5>
 						<h:inputText class="form-control" id="precio"
 							value="#{RopaBean.precio}">
 							<f:convertNumber integerOnly="true" />
 						</h:inputText>
 
-						<h:outputLabel for="id" value="ID:" />
-						<h:inputText class="form-control" id="id" value="#{RopaBean.id}" />
 
-						<h:outputLabel for="nombre" value="Nombre:" />
+
+						<h5>Nombre:</h5>
 						<h:inputText class="form-control" id="nombre"
 							value="#{RopaBean.nombre}" />
 
-						<h:outputLabel for="imagen" value="Imagen:" />
+						<h5>Imagen:</h5>
 						<h:inputText class="form-control" id="imagen"
 							value="#{RopaBean.imagen}" />
 
 						<div class="ui-fluid formgrid grid">
 							<div class="field col-12 md:col-4">
-								<p:outputLabel for="@next" value="Talla" />
+								<h5>Talla:</h5>
 								<p:selectOneMenu id="option" value="#{RopaBean.talla}">
 									<f:selectItem itemLabel="Selecciona una" itemValue="" />
 									<f:selectItem itemLabel="XS" itemValue="XS" />
@@ -66,7 +65,7 @@
 
 						<div class="ui-fluid formgrid grid">
 							<div class="field col-12 md:col-4">
-								<p:outputLabel for="@next" value="TipoDePrenda" />
+								<h5>Tipo de prenda:</h5>
 								<p:selectOneMenu id="option2" value="#{RopaBean.tipoDePrenda}">
 									<f:selectItem itemLabel="Selecciona una" itemValue="" />
 									<f:selectItem itemLabel="Camisa" itemValue="Camisa" />
@@ -110,8 +109,7 @@
 
 				<!-- TAB ACTUALIZAR -->
 				<p:tab title="Actualizar">
-					<h:outputText
-						value="Seleccione una prenda de ropa para actualizar:" />
+					<h:outputText value="Seleccione una prenda para actualizar:" />
 					<p:dataTable var="ropa" value="#{RopaBean.lista}"
 						selectionMode="single" selection="#{RopaBean.usuarioSeleccionado}"
 						rowKey="#{ropa.id}" style="width:100%">
@@ -119,8 +117,82 @@
 							<h:outputText value="#{ropa.nombre}" />
 						</p:column>
 					</p:dataTable>
+					<hr></hr>
+
+					<!-- FORMULARIO DE EDICIÓN -->
+					<h:panelGrid columns="2" style="width:100%">
+						<h5>Precio:</h5>
+						<h:inputText id="precioEdit" class="form-control"
+							value="#{RopaBean.usuarioSeleccionado.precio}"
+							rendered="#{not empty RopaBean.usuarioSeleccionado}">
+							<f:convertNumber integerOnly="true" />
+						</h:inputText>
+
+						<h5>Nombre:</h5>
+						<h:inputText id="nombreEdit" class="form-control"
+							value="#{RopaBean.usuarioSeleccionado.nombre}"
+							rendered="#{not empty RopaBean.usuarioSeleccionado}" />
+
+						<h5>Imagen:</h5>
+
+						<h:inputText id="imagenEdit" class="form-control"
+							value="#{RopaBean.usuarioSeleccionado.imagen}"
+							rendered="#{not empty RopaBean.usuarioSeleccionado}" />
+
+						<div class="ui-fluid formgrid grid">
+							<div class="field col-12 md:col-4">
+								<h5>Talla:</h5>
+								<p:selectOneMenu id="optionUpd"
+									value="#{RopaBean.usuarioSeleccionado.talla}"
+									rendered="#{not empty RopaBean.usuarioSeleccionado}">
+									<f:selectItem itemLabel="Selecciona una" itemValue="" />
+									<f:selectItem itemLabel="XS" itemValue="XS" />
+									<f:selectItem itemLabel="S" itemValue="S" />
+									<f:selectItem itemLabel="M" itemValue="M " />
+									<f:selectItem itemLabel="L" itemValue="L" />
+									<f:selectItem itemLabel="XL" itemValue="XL" />
+									<f:selectItem itemLabel="XXL" itemValue="XXL" />
+									<f:facet name="footer">
+										<p:divider styleClass="mt-0" />
+										<h:outputText value="6 opciones" style="font-weight:bold;" />
+									</f:facet>
+								</p:selectOneMenu>
+							</div>
+						</div>
+
+						<div class="ui-fluid formgrid grid">
+							<div class="field col-12 md:col-4">
+								<h5>Tipo de prenda:</h5>
+								<p:selectOneMenu id="optionUpd2"
+									value="#{RopaBean.usuarioSeleccionado.tipoDePrenda}"
+									rendered="#{not empty RopaBean.usuarioSeleccionado}">
+									<f:selectItem itemLabel="Selecciona una" itemValue="" />
+									<f:selectItem itemLabel="Camisa" itemValue="Camisa" />
+									<f:selectItem itemLabel="Pantalon" itemValue="Pantalon" />
+									<f:selectItem itemLabel="Ropa interior"
+										itemValue="Ropa interior " />
+									<f:selectItem itemLabel="Falda" itemValue="Falda" />
+									<f:selectItem itemLabel="Chaqueta" itemValue="Chaqueta" />
+									<f:selectItem itemLabel="Buzo" itemValue="Buzo" />
+									<f:facet name="footer">
+										<p:divider styleClass="mt-0" />
+										<h:outputText value="6 opciones" style="font-weight:bold;" />
+									</f:facet>
+								</p:selectOneMenu>
+							</div>
+						</div>
+
+					</h:panelGrid>
+
+
+					<p:commandButton value="Seleccionar prenda"
+						action="#{RopaBean.ejecutarAccion}"
+						rendered="#{RopaBean.botonVisible}" update="@form"
+						styleClass="ui-button-primary" />
 					<p:commandButton value="Actualizar" action="#{RopaBean.actualizar}"
 						update="@form" styleClass="ui-button-primary" />
+
+
 				</p:tab>
 
 				<!-- TAB MOSTRAR -->
@@ -136,8 +208,9 @@
 						<p:column headerText="Nombre">
 							<h:outputText value="#{ropa.nombre}" />
 						</p:column>
-						<p:column headerText="Imagen">
-							<h:outputText value="#{ropa.imagen}" />
+						<p:column headerText="Image" exportable="false">
+							<h:graphicImage value="#{ropa.imagen}" alt="Imagen de la prenda"
+								style="width:100%" />
 						</p:column>
 						<p:column headerText="Tipo de prenda">
 							<h:outputText value="#{ropa.tipoDePrenda}" />

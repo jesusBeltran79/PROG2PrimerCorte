@@ -8,7 +8,7 @@ public class AlimentoCarnicoDAO implements CRUDOperation<AlimentoCarnicoDTO> {
 	
 	private ArrayList<AlimentoCarnicoDTO> listaAliCarnico;
 
-	private final String SERIAL_NAME = "listaCarnico.dat";
+	private final String SERIAL_NAME = "lista_Carnico.dat";
 
 	public AlimentoCarnicoDAO() {
 		listaAliCarnico = new ArrayList<>();

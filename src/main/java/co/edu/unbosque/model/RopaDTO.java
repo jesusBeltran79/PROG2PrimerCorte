@@ -1,6 +1,8 @@
 package co.edu.unbosque.model;
 
-public class RopaDTO extends Producto {
+import java.io.Serializable;
+
+public class RopaDTO extends Producto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String talla;
@@ -40,10 +42,6 @@ public class RopaDTO extends Producto {
 
 	public void setTipoDePrenda(String tipoDePrenda) {
 		this.tipoDePrenda = tipoDePrenda;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	@Override

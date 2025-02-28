@@ -1,6 +1,8 @@
 package co.edu.unbosque.model;
 
-public class AlimentoCarnicoDTO extends Producto {
+import java.io.Serializable;
+
+public class AlimentoCarnicoDTO extends Producto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String tipoDeCarne;
@@ -37,10 +39,6 @@ public class AlimentoCarnicoDTO extends Producto {
 
 	public void setProcesada(boolean procesada) {
 		this.procesada = procesada;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	@Override

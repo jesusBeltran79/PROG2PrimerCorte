@@ -31,6 +31,7 @@ public class RopaBean implements Serializable {
 	private RopaDAO ropaDAO = new RopaDAO();
 
 	public RopaBean() {
+		usuarioSeleccionado = new RopaDTO();
 		lista = ropaDAO.getListaRopa();
 	}
 
@@ -40,8 +41,11 @@ public class RopaBean implements Serializable {
 		int aleatorio = 1000000 + r.nextInt(9000000);
 		String identificacion = String.valueOf(aleatorio);
 		RopaDTO nuevoUsuario = new RopaDTO(precio, identificacion, nombre, imagen, talla, tipoDePrenda);
-		lista.add(nuevoUsuario);
-
+		if (lista.isEmpty()) {
+			lista.add(nuevoUsuario);
+		}else {
+			ropaDAO.crear(nuevoUsuario);
+		}
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Ropa agregada correctamente"));
 		limpiarFormulario();
 	}
@@ -51,8 +55,7 @@ public class RopaBean implements Serializable {
 		while (iterator.hasNext()) {
 			RopaDTO u = iterator.next();
 			if (u.equals(usuario)) {
-				iterator.remove();
-
+				ropaDAO.eliminar(u);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Ropa eliminada correctamente"));
 				break;
 			}
@@ -161,10 +164,6 @@ public class RopaBean implements Serializable {
 
 	public void setUsuarioSeleccionado(RopaDTO usuarioSeleccionado) {
 		this.usuarioSeleccionado = usuarioSeleccionado;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	@Override

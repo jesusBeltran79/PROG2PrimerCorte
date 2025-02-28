@@ -8,7 +8,7 @@ public class AlimentoLacteoDAO implements CRUDOperation<AlimentoLacteoDTO> {
 	
 	private ArrayList<AlimentoLacteoDTO> listaAliLacteo;
 
-	private final String SERIAL_NAME = "listaLacteo.dat";
+	private final String SERIAL_NAME = "lista_Lacteo.dat";
 
 	public AlimentoLacteoDAO() {
 		listaAliLacteo = new ArrayList<>();

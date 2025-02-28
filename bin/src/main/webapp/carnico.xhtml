@@ -27,27 +27,30 @@
 				<!-- TAB CREAR -->
 				<p:tab title="Crear">
 					<h:panelGrid columns="2" style="width:100%">
-						<h:outputLabel for="precio" value="Precio:" />
+						<h5>Precio:</h5>
 						<h:inputText class="form-control" id="precio"
 							value="#{CarnicoBean.precio}">
 							<f:convertNumber integerOnly="true" />
 						</h:inputText>
 
-						<h:outputLabel for="id" value="ID:" />
-						<h:inputText class="form-control" id="id"
-							value="#{CarnicoBean.id}" />
 
-						<h:outputLabel for="nombre" value="Nombre:" />
+
+						<h5>Nombre</h5>
 						<h:inputText class="form-control" id="nombre"
 							value="#{CarnicoBean.nombre}" />
 
-						<h:outputLabel for="imagen" value="Imagen:" />
+						<h5>Imagen:</h5>
 						<h:inputText class="form-control" id="imagen"
 							value="#{CarnicoBean.imagen}" />
 
+						<h5>Es procesada?</h5>
+						<h:selectBooleanCheckbox id="procesada"
+							value="#{CarnicoBean.procesada}" />
+
+
 						<div class="ui-fluid formgrid grid">
 							<div class="field col-12 md:col-4">
-								<p:outputLabel for="@next" value="TipoDeCarne:" />
+								<h5>Tipo de carne:</h5>
 								<p:selectOneMenu id="option" value="#{CarnicoBean.tipoDeCarne}">
 									<f:selectItem itemLabel="Selecciona una" itemValue="" />
 									<f:selectItem itemLabel="Carne de res" itemValue="Carne de res" />
@@ -66,9 +69,7 @@
 						</div>
 
 
-						<h:outputLabel value="Procesada?" />
-						<h:selectBooleanCheckbox id="procesada"
-							value="#{CarnicoBean.procesada}" />
+
 					</h:panelGrid>
 
 					<p:commandButton class="ui-button-primary"
@@ -104,30 +105,36 @@
 							<h:outputText value="#{carnico.nombre}" />
 						</p:column>
 					</p:dataTable>
+					<hr></hr>
 
 					<!-- FORMULARIO DE EDICIÓN -->
 					<h:panelGrid columns="2" style="width:100%">
-						<h:outputLabel for="precioEdit" value="Precio:" />
+						<h5>Precio:</h5>
 						<h:inputText id="precioEdit" class="form-control"
 							value="#{CarnicoBean.usuarioSeleccionado.precio}"
 							rendered="#{not empty CarnicoBean.usuarioSeleccionado}">
 							<f:convertNumber integerOnly="true" />
 						</h:inputText>
 
-						<h:outputLabel for="nombreEdit" value="Nombre:" />
+						<h5>Nombre:</h5>
 						<h:inputText id="nombreEdit" class="form-control"
 							value="#{CarnicoBean.usuarioSeleccionado.nombre}"
 							rendered="#{not empty CarnicoBean.usuarioSeleccionado}" />
 
-						<h:outputLabel for="imagenEdit" value="Imagen:" />
+						<h5>Imagen:</h5>
 
 						<h:inputText id="imagenEdit" class="form-control"
 							value="#{CarnicoBean.usuarioSeleccionado.imagen}"
 							rendered="#{not empty CarnicoBean.usuarioSeleccionado}" />
 
+						<h5>Es procesada?</h5>
+						<h:selectBooleanCheckbox id="procesadaEdit"
+							value="#{CarnicoBean.usuarioSeleccionado.procesada}"
+							rendered="#{not empty CarnicoBean.usuarioSeleccionado}" />
+
 						<div class="ui-fluid formgrid grid">
 							<div class="field col-12 md:col-4">
-								<p:outputLabel for="@next" value="TipoDeCarne:" />
+								<h5>Tipo de carne:</h5>
 								<p:selectOneMenu id="optionUpd"
 									value="#{CarnicoBean.usuarioSeleccionado.tipoDeCarne}"
 									rendered="#{not empty CarnicoBean.usuarioSeleccionado}">
@@ -141,20 +148,18 @@
 									<f:selectItem itemLabel="Pato" itemValue="Pato" />
 									<f:facet name="footer">
 										<p:divider styleClass="mt-0" />
-										<h:outputText value="7 opciones" style="font-weight:bold;" />
+										<h:outputText value="6 opciones" style="font-weight:bold;" />
 									</f:facet>
 								</p:selectOneMenu>
 							</div>
 						</div>
 
-						<h:outputLabel for="procesadaEdit" value="Procesada" />
-						<h:selectBooleanCheckbox id="procesadaEdit"
-							value="#{CarnicoBean.usuarioSeleccionado.procesada}"
-							rendered="#{not empty CarnicoBean.usuarioSeleccionado}" />
+
 					</h:panelGrid>
 
 					<p:commandButton value="Seleccionar alimento Carnico"
-						action="#{CarnicoBean.actualizar}" update="@form"
+						action="#{CarnicoBean.ejecutarAccion}"
+						rendered="#{CarnicoBean.botonVisible}" update="@form"
 						styleClass="ui-button-primary" />
 
 					<p:commandButton value="Actualizar"
@@ -175,8 +180,9 @@
 						<p:column headerText="Nombre">
 							<h:outputText value="#{carnico.nombre}" />
 						</p:column>
-						<p:column headerText="Imagen">
-							<h:outputText value="#{carnico.imagen}" />
+						<p:column headerText="Image" exportable="false">
+							<h:graphicImage value="#{carnico.imagen}"
+								alt="Imagen de el alimento carnico" style="width:100%" />
 						</p:column>
 						<p:column headerText="Tipo de carne">
 							<h:outputText value="#{carnico.tipoDeCarne}" />

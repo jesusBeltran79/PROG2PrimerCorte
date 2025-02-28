@@ -1,6 +1,8 @@
 package co.edu.unbosque.model;
 
-public class JugueteDTO extends Producto {
+import java.io.Serializable;
+
+public class JugueteDTO extends Producto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private boolean esMas18;
@@ -29,10 +31,6 @@ public class JugueteDTO extends Producto {
 
 	public void setEsMas18(boolean esMas18) {
 		this.esMas18 = esMas18;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	@Override

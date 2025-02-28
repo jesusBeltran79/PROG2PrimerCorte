@@ -29,10 +29,11 @@ public class LacteoBean implements Serializable {
 
 	private List<AlimentoLacteoDTO> lista = new ArrayList<>();
 	private AlimentoLacteoDTO usuarioSeleccionado;
-	private AlimentoLacteoDAO lacteoDAO;
+	private AlimentoLacteoDAO lacteoDAO= new AlimentoLacteoDAO();
 
 	public LacteoBean() {
 		usuarioSeleccionado = new AlimentoLacteoDTO();
+		lista = lacteoDAO.getListaAliLacteo();
 	}
 
 	public void guardar() {
@@ -41,8 +42,11 @@ public class LacteoBean implements Serializable {
 		String identificacion = String.valueOf(aleatorio);
 		AlimentoLacteoDTO nuevoUsuario = new AlimentoLacteoDTO(precio, identificacion, nombre, imagen, sinLactosa,
 				tipoDeLeche);
-		lista.add(nuevoUsuario);
-
+		if (lista.isEmpty()) {
+			lista.add(nuevoUsuario);
+		}else {
+			lacteoDAO.crear(nuevoUsuario);
+		}
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alimento lacteo agregado correctamente"));
 		limpiarFormulario();
 	}
@@ -52,8 +56,7 @@ public class LacteoBean implements Serializable {
 		while (iterator.hasNext()) {
 			AlimentoLacteoDTO u = iterator.next();
 			if (u.equals(usuario)) {
-				iterator.remove();
-
+				lacteoDAO.eliminar(u);
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage("Alimento lacteo eliminado correctamente"));
 				break;
@@ -71,7 +74,7 @@ public class LacteoBean implements Serializable {
 					u.getImagen();
 					u.isSinLactosa();
 					u.getTipoDeLacteo();
-
+					
 					FacesContext.getCurrentInstance().addMessage(null,
 							new FacesMessage("Alimento lacteo actualizado correctamente"));
 					break;

@@ -28,25 +28,23 @@
 				<!-- TAB CREAR -->
 				<p:tab title="Crear">
 					<h:panelGrid columns="2" style="width:100%">
-						<h:outputLabel for="precio" value="Precio:" />
+						<h5>Precio:</h5>
 						<h:inputText class="form-control" id="precio"
 							value="#{JugueteBean.precio}">
 							<f:convertNumber integerOnly="true" />
 						</h:inputText>
 
-						<h:outputLabel for="id" value="ID:" />
-						<h:inputText class="form-control" id="id"
-							value="#{JugueteBean.id}" />
 
-						<h:outputLabel for="nombre" value="Nombre:" />
+
+						<h5>Nombre:</h5>
 						<h:inputText class="form-control" id="nombre"
 							value="#{JugueteBean.nombre}" />
 
-						<h:outputLabel for="imagen" value="Imagen:" />
+						<h5>Imagen:</h5>
 						<h:inputText class="form-control" id="imagen"
 							value="#{JugueteBean.imagen}" />
 
-						<h:outputLabel value="Mayor de 18" />
+						<h5>Es para mayores de 18?</h5>
 						<h:selectBooleanCheckbox id="mayorde18"
 							value="#{JugueteBean.esMas18}" />
 					</h:panelGrid>
@@ -83,40 +81,44 @@
 							<h:outputText value="#{juguete.nombre}" />
 						</p:column>
 					</p:dataTable>
+					<hr></hr>
 
 					<!-- FORMULARIO DE EDICIÓN -->
 					<h:panelGrid columns="2" style="width:100%">
-						<h:outputLabel for="precioEdit" value="Precio:" />
+						<h5>Precio:</h5>
 						<h:inputText id="precioEdit" class="form-control"
 							value="#{JugueteBean.usuarioSeleccionado.precio}"
 							rendered="#{not empty JugueteBean.usuarioSeleccionado}">
 							<f:convertNumber integerOnly="true" />
 						</h:inputText>
 
-						<h:outputLabel for="nombreEdit" value="Nombre:" />
+						<h5>Nombre:</h5>
 						<h:inputText id="nombreEdit" class="form-control"
 							value="#{JugueteBean.usuarioSeleccionado.nombre}"
 							rendered="#{not empty JugueteBean.usuarioSeleccionado}" />
 
-						<h:outputLabel for="imagenEdit" value="Imagen:" />
+						<h5>Imagen:</h5>
 
 						<h:inputText id="imagenEdit" class="form-control"
 							value="#{JugueteBean.usuarioSeleccionado.imagen}"
 							rendered="#{not empty JugueteBean.usuarioSeleccionado}" />
 
-						<h:outputLabel for="mayorde18Edit" value="Mayor de 18:" />
+						<h5>Es para mayores de 18?</h5>
 						<h:selectBooleanCheckbox id="mayorde18Edit"
 							value="#{JugueteBean.usuarioSeleccionado.esMas18}"
 							rendered="#{not empty JugueteBean.usuarioSeleccionado}" />
 					</h:panelGrid>
 
-					<p:commandButton value="Seleccionar Juguete"
-						action="#{JugueteBean.actualizar}" update="@form"
-						styleClass="ui-button-primary" />
 
+					<p:commandButton value="Seleccionar juguete"
+						action="#{JugueteBean.ejecutarAccion}"
+						rendered="#{JugueteBean.botonVisible}" update="@form"
+						styleClass="ui-button-primary" />
 					<p:commandButton value="Actualizar"
 						action="#{JugueteBean.actualizar}" update="@form"
 						styleClass="ui-button-primary" />
+
+
 				</p:tab>
 
 
@@ -133,8 +135,9 @@
 						<p:column headerText="Nombre">
 							<h:outputText value="#{juguete.nombre}" />
 						</p:column>
-						<p:column headerText="Imagen">
-							<h:outputText value="#{juguete.imagen}" />
+						<p:column headerText="Image" exportable="false">
+							<h:graphicImage value="#{juguete.imagen}"
+								alt="Imagen del juguete" style="width:100%" />
 						</p:column>
 						<p:column headerText="Es para mayores de 18?">
 							<h:outputText value="#{juguete.esMas18}" />

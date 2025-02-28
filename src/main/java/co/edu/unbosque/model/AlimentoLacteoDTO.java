@@ -1,6 +1,8 @@
 package co.edu.unbosque.model;
 
-public class AlimentoLacteoDTO extends Producto {
+import java.io.Serializable;
+
+public class AlimentoLacteoDTO extends Producto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private boolean sinLactosa;
@@ -41,10 +43,6 @@ public class AlimentoLacteoDTO extends Producto {
 
 	public void setTipoDeLacteo(String tipoDeLacteo) {
 		this.tipoDeLacteo = tipoDeLacteo;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	@Override

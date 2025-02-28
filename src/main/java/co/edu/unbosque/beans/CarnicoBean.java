@@ -28,11 +28,11 @@ public class CarnicoBean implements Serializable {
 	private boolean botonVisible = true;
 	private List<AlimentoCarnicoDTO> lista = new ArrayList<>();
 	private AlimentoCarnicoDTO usuarioSeleccionado;
-	private AlimentoCarnicoDAO carnicoDAO;
+	private AlimentoCarnicoDAO carnicoDAO = new AlimentoCarnicoDAO();
 
 	public CarnicoBean() {
-		// TODO Auto-generated constructor stub
 		usuarioSeleccionado = new AlimentoCarnicoDTO();
+		lista = carnicoDAO.getListaAliCarnico();
 	}
 
 	public void guardar() {
@@ -42,8 +42,11 @@ public class CarnicoBean implements Serializable {
 
 		AlimentoCarnicoDTO nuevoUsuario = new AlimentoCarnicoDTO(precio, identificacion, nombre, imagen, tipoDeCarne,
 				procesada);
-		lista.add(nuevoUsuario);
-
+		if (lista.isEmpty()) {
+			lista.add(nuevoUsuario);
+		}else {
+			carnicoDAO.crear(nuevoUsuario);
+		}
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alimento carnico agregado correctamente"));
 		limpiarFormulario();
 	}
@@ -53,8 +56,7 @@ public class CarnicoBean implements Serializable {
 		while (iterator.hasNext()) {
 			AlimentoCarnicoDTO u = iterator.next();
 			if (u.equals(usuario)) {
-				iterator.remove();
-
+				carnicoDAO.eliminar(u);
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage("Alimento carnico eliminado correctamente"));
 				break;
