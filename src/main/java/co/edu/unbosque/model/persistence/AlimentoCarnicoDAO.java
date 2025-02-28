@@ -1,25 +1,45 @@
+/**
+ * Este paquete model representa el modelo de la arquitectura MVC.
+ * 
+ * En este paquete es una adicion a la clase modelo, y es la que guarda los datos, y hace que los persistan, y se guarden despues de cerrar el aplicativo 
+ */
 package co.edu.unbosque.model.persistence;
 
 import java.util.ArrayList;
 
 import co.edu.unbosque.model.AlimentoCarnicoDTO;
-
+/**
+ * Clase encargada de la persistencia de alimentos carnicos
+ */
 public class AlimentoCarnicoDAO implements CRUDOperation<AlimentoCarnicoDTO> {
-	
+	/**
+	 * Lista de alimentos carnicos
+	 */
 	private ArrayList<AlimentoCarnicoDTO> listaAliCarnico;
-
+/**
+ * Nombre del archivo serializado
+ */
 	private final String SERIAL_NAME = "lista_Carnico.dat";
-
+	/**
+	 * Constructor vacio que inicializa la lista, verifica la existencia de los
+	 * folder y lee la informacion del serializable
+	 */
 	public AlimentoCarnicoDAO() {
 		listaAliCarnico = new ArrayList<>();
 		FileHandler.checkFolder();
 		readSerializable();
 	}
-
+/**
+ *  Nos trae la lista
+ * @return La lista
+ */
 	public ArrayList<AlimentoCarnicoDTO> getListaAliCarnico() {
 		return listaAliCarnico;
 	}
-
+/**
+ * Le cambia valor a la lista
+ * @param nueva lista
+ */
 	public void setListaAliCarnico(ArrayList<AlimentoCarnicoDTO> listaAliCarnico) {
 		this.listaAliCarnico = listaAliCarnico;
 	}
@@ -67,7 +87,9 @@ public class AlimentoCarnicoDAO implements CRUDOperation<AlimentoCarnicoDTO> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+/**
+ * Metodo para escribir serializable
+ */
 	public void writeSerializable() {
 		FileHandler.writeSerializable(SERIAL_NAME, listaAliCarnico);
 	}

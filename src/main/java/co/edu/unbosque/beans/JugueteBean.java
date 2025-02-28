@@ -1,3 +1,6 @@
+/**
+ * Paquete beans. Usado para poder tener una interaccion entre el back y el front. En el back van los datos dirijidos a sus respectivos daos y front a sus respectivos .xhtml
+ */
 package co.edu.unbosque.beans;
 
 import java.io.Serializable;
@@ -15,6 +18,12 @@ import jakarta.inject.Named;
 
 @Named("JugueteBean")
 @SessionScoped
+
+/**
+ * Clase que representa el bean del juguete. Implementa la interfaz Serializable
+ * para permitir la persistencia del juguete. A su vez es la que tiene la
+ * conexion entre los datos en el DAO y el front en los .xhtml
+ */
 public class JugueteBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,14 +37,18 @@ public class JugueteBean implements Serializable {
 	private List<JugueteDTO> lista = new ArrayList<>();
 	private JugueteDTO usuarioSeleccionado;
 	private JugueteDAO jugueteDAO = new JugueteDAO();
-
+	/**
+	 * Constructor vacio. Nos trae la lista y el seleccionado por el usuario
+	 */
 	public JugueteBean() {
 		usuarioSeleccionado = new JugueteDTO();
 		lista = jugueteDAO.getListaJuguete();
 	}
 
 	// lista = jugueteDAO.getListaJuguete();
-
+	/**
+	 * Metodo usado para poder guardar la informacion
+	 */
 	public void guardar() {
 
 		Random r = new Random();
@@ -50,6 +63,10 @@ public class JugueteBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Juguete agregado correctamente"));
 		limpiarFormulario();
 	}
+	/**
+	 * Metodo usado para poder eliminar respecto a una informacion dada
+	 * @param usuario Nos da el valor del usuario 
+	 */
 
 	public void eliminar(JugueteDTO usuario) {
 		Iterator<JugueteDTO> iterator = lista.iterator();
@@ -62,7 +79,9 @@ public class JugueteBean implements Serializable {
 			}
 		}
 	}
-
+	/**
+	 * Metodo actualizar del crud, el cual actualiza la informacion que se quiera ver
+	 */
 	public void actualizar() {
 		if (usuarioSeleccionado != null) {
 			for (JugueteDTO u : lista) {
@@ -78,7 +97,9 @@ public class JugueteBean implements Serializable {
 			}
 		}
 	}
-
+/**
+ * Limpia toda la informacio dentro del formulario
+ */
 	private void limpiarFormulario() {
 		this.precio = 0;
 		this.id = "";
@@ -86,10 +107,16 @@ public class JugueteBean implements Serializable {
 		this.imagen = "";
 		this.esMas18 = false;
 	}
-
+/**
+ * Da la visibilidad de los botones
+ * @return Verdadero si se muestra falso si no
+ */
 	public boolean isBotonVisible() {
 		return botonVisible;
 	}
+	/**
+	 * Es quien ejecuta y da la accion al boton
+	 */
 
 	public void ejecutarAccion() {
 		// Lógica del botón
@@ -99,70 +126,150 @@ public class JugueteBean implements Serializable {
 		botonVisible = false;
 	}
 
+	/**
+	 * Obtiene el precio del juguete.
+	 *
+	 * @return El precio del juguete.
+	 */
 	public int getPrecio() {
-		return precio;
+	    return precio;
 	}
 
+	/**
+	 * Establece el precio del juguete.
+	 *
+	 * @param precio El precio del juguete.
+	 */
 	public void setPrecio(int precio) {
-		this.precio = precio;
+	    this.precio = precio;
 	}
 
+	/**
+	 * Obtiene el ID del juguete.
+	 *
+	 * @return El ID del juguete.
+	 */
 	public String getId() {
-		return id;
+	    return id;
 	}
 
+	/**
+	 * Establece el ID del juguete.
+	 *
+	 * @param id El ID del juguete.
+	 */
 	public void setId(String id) {
-		this.id = id;
+	    this.id = id;
 	}
 
+	/**
+	 * Obtiene el nombre del juguete.
+	 *
+	 * @return El nombre del juguete.
+	 */
 	public String getNombre() {
-		return nombre;
+	    return nombre;
 	}
 
+	/**
+	 * Establece el nombre del juguete.
+	 *
+	 * @param nombre El nombre del juguete.
+	 */
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	    this.nombre = nombre;
 	}
 
+	/**
+	 * Obtiene la ruta de la imagen del juguete.
+	 *
+	 * @return La ruta de la imagen del juguete.
+	 */
 	public String getImagen() {
-		return imagen;
+	    return imagen;
 	}
 
+	/**
+	 * Establece la ruta de la imagen del juguete.
+	 *
+	 * @param imagen La ruta de la imagen del juguete.
+	 */
 	public void setImagen(String imagen) {
-		this.imagen = imagen;
+	    this.imagen = imagen;
 	}
 
+	/**
+	 * Obtiene el valor booleano que indica si el juguete es para mayores de 18 años.
+	 *
+	 * @return true si el juguete es para mayores de 18 años, false en caso contrario.
+	 */
 	public boolean isEsMas18() {
-		return esMas18;
+	    return esMas18;
 	}
 
+	/**
+	 * Establece el valor booleano que indica si el juguete es para mayores de 18 años.
+	 *
+	 * @param esMas18 true si el juguete es para mayores de 18 años, false en caso contrario.
+	 */
 	public void setEsMas18(boolean esMas18) {
-		this.esMas18 = esMas18;
+	    this.esMas18 = esMas18;
 	}
 
+	/**
+	 * Obtiene la lista de objetos JugueteDTO asociados a este juguete.
+	 *
+	 * @return La lista de objetos JugueteDTO.
+	 */
 	public List<JugueteDTO> getLista() {
-		return lista;
+	    return lista;
 	}
 
+	/**
+	 * Establece la lista de objetos JugueteDTO asociados a este juguete.
+	 *
+	 * @param lista La lista de objetos JugueteDTO.
+	 */
 	public void setLista(List<JugueteDTO> lista) {
-		this.lista = lista;
+	    this.lista = lista;
 	}
 
+	/**
+	 * Obtiene el objeto JugueteDTO seleccionado.
+	 *
+	 * @return El objeto JugueteDTO seleccionado.
+	 */
 	public JugueteDTO getUsuarioSeleccionado() {
-		return usuarioSeleccionado;
+	    return usuarioSeleccionado;
 	}
 
+	/**
+	 * Establece el objeto JugueteDTO seleccionado.
+	 *
+	 * @param usuarioSeleccionado El objeto JugueteDTO seleccionado.
+	 */
 	public void setUsuarioSeleccionado(JugueteDTO usuarioSeleccionado) {
-		this.usuarioSeleccionado = usuarioSeleccionado;
+	    this.usuarioSeleccionado = usuarioSeleccionado;
 	}
 
+	/**
+	 * Obtiene el número de versión serial para la serialización.
+	 *
+	 * @return El número de versión serial.
+	 */
 	public static long getSerialversionuid() {
-		return serialVersionUID;
+	    return serialVersionUID;
 	}
 
+	/**
+	 * Devuelve una representación en cadena del objeto JugueteBean.
+	 *
+	 * @return Una cadena que representa el objeto JugueteBean.
+	 */
 	@Override
 	public String toString() {
-		return "JugueteBean [precio=" + precio + ", id=" + id + ", nombre=" + nombre + ", imagen=" + imagen
-				+ ", esMas18=" + esMas18 + ", lista=" + lista + ", usuarioSeleccionado=" + usuarioSeleccionado + "]";
+	    return "JugueteBean [precio=" + precio + ", id=" + id + ", nombre=" + nombre + ", imagen=" + imagen
+	            + ", esMas18=" + esMas18 + ", lista=" + lista + ", usuarioSeleccionado=" + usuarioSeleccionado + "]";
 	}
 
 }
