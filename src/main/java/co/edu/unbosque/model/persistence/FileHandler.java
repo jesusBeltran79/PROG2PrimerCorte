@@ -1,15 +1,15 @@
 package co.edu.unbosque.model.persistence;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.util.Properties;
-import java.util.Scanner;
+import java.io.File; // Usada para traer los archivos
+import java.io.FileInputStream; //Usada para escribir archivos
+import java.io.FileNotFoundException; //Excepcion si no se encuentra el archivo
+import java.io.FileOutputStream; //Usada para leer un archivo
+import java.io.IOException; //Excepcion mas general
+import java.io.ObjectInputStream; //Usada para escribir un binario
+import java.io.ObjectOutputStream; //Usada para leer un binario
+import java.io.PrintWriter; //Usada para imprimir 
+import java.util.Properties; //Usada para registrar los archivos de propiedas
+import java.util.Scanner; //Usada para leer 
 
 public class FileHandler {
 	private static Scanner sc; // ve el contenido del archivo
@@ -180,4 +180,5 @@ public class FileHandler {
 		}
 		return prop;
 	}
+
 }
